@@ -64,7 +64,7 @@ def get_ai_response(sender, text):
         response_text = response.choices[0].message.content
         conversation.append({"role": "assistant", "content": response_text})
     return response_text
-
+#あ
 
 @app.route("/callback", methods=["POST"])
 def callback():
