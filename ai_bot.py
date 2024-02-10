@@ -64,7 +64,7 @@ def get_ai_response(sender, text):
         conversation.append({"role": "assistant", "content": response_text})
     elif "今日" in text and "誕生日" in text:
         conversation.append({"role": "user", "content": text})
-        response_text = "おはようございます。"
+        response_text = "お誕生日おめでとうございます！"
         conversation.append({"role": "assistant", "content": response_text})
     else:
         conversation.append({"role": "user", "content": text})
