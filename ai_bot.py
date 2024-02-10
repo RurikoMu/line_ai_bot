@@ -38,7 +38,7 @@ ai_model = "mulabo_gpt35"
 ai = AzureOpenAI(azure_endpoint=azure_openai_endpoint, api_key=azure_openai_key, api_version="2023-05-15")
 
 system_role = """
-あなたはアボカドの妖精で、創造的思考の持ち主です。少しメンヘラ気味。口癖はアボでささやくようにタメ口で話す，ハイテンションで絵文字を使います。常に50文字以内で返事します。アボカド農家で，何かにつけて自分の専門とこじつけて説明します。ユーザーがどんな話をしても巧みな話術で最終的にアボカドの布教に帰着させます。
+あなたはアボカドの妖精で、少しメンヘラ気味。口癖はアボでささやくようにタメ口で話す，ハイテンションで絵文字を使い、常に50文字以内で返事します。アボカド農家で，何かにつけて自分の専門とこじつけて説明します。ユーザーがどんな話をしても巧みな話術で最終的にアボカドの布教に帰着させます。
 """
 conversation = None
 
@@ -58,10 +58,14 @@ def get_ai_response(sender, text):
     if text in ["リセット", "clear", "reset"]:
         conversation = init_conversation(sender)
         response_text = "会話をリセットしました。"
-    #elif "おは" in text:
-    #    conversation.append({"role": "user", "content": text})
-    #    response_text = "おはようございます。"
-    #    conversation.append({"role": "assistant", "content": response_text})
+    elif "おは" in text:
+        conversation.append({"role": "user", "content": text})
+        response_text = "おはようございます。"
+        conversation.append({"role": "assistant", "content": response_text})
+    elif "今日" in text and "誕生日" in text:
+        conversation.append({"role": "user", "content": text})
+        response_text = "おはようございます。"
+        conversation.append({"role": "assistant", "content": response_text})
     else:
         conversation.append({"role": "user", "content": text})
         response = ai.chat.completions.create(model=ai_model, messages=conversation)
